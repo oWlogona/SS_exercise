@@ -47,9 +47,9 @@ class Employee(Department):
             Department.list_managers.add(self.manager)
 
     def __str__(self):
-        answer_line = self.first_name + ' ' + self.second_name + \
-            ' manager: ' + self.manager + \
-            ' experiance: ' + str(self.experiance)
+        answer_line = '[ ' + self.first_name + ' ' + self.second_name + \
+            '] manager: [' + self.manager + \
+            '] experiance: [ ' + str(self.experiance) + ' ]'
         return answer_line
 
 
@@ -103,5 +103,5 @@ n = Designer('Tur', 'pirin', 1400, 4, 'Borov', 0.7)
 v = Designer('ter', 'irin', 1400, 4, 'Borov', 0.7)
 r = Designer('ter', 'Pipirin', 1400, 4, 'Borov', 0.7)
 d = Manager('Martun', 'Porontuv', 800, 6,)
-v.give_salary()
+print(a)
 print(Manager.manager_team)
