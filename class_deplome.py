@@ -23,6 +23,14 @@
 """
 
 
+class SalaryGivingError(Exception):
+	def __init__(self):
+		pass
+
+
+	def __str__(self):
+		return "does't have employee"
+
 class Department:
     list_managers = set()
 
@@ -43,6 +51,7 @@ class Employee(Department):
         elif self.experiance > 2:
             self.salary = self.salary + 200
         self.manager = manager
+        self.team = {'developer': [], 'designer': []}
         if self.manager:
             Department.list_managers.add(self.manager)
 
@@ -54,36 +63,24 @@ class Employee(Department):
 
 
 class Manager(Employee):
-    manager_team = {'developer': [], 'designer': []}
 
     def __init__(self, first_name, second_name,
                  salary, experiance, manager=None):
         super().__init__(first_name, second_name, salary, experiance, manager)
 
-    def give_salary(self):
-        length, dev = 0
-        for item in Manager.manager_team.keys():
-            if item == 'developer':
-                dev = len(Manager.manager_team[item])
-            length += len(Manager.manager_team[item])
+    def add_to_team(self, name, position):
+    	if position == 'developer':
+    		self.team[position].append(name)
+    	elif position == 'designer':
+    		self.team[position].append(name)
 
-        if (length // 2) < dev:
-            self.salary = self.salary * 1.1
-        elif length > 10:
-            self.salary = self.salary + 300
-        elif length > 5:
-            self.salary = self.salary + 300
 
-        salary_employee = self.first_name + ' ' + \
-            self.second_name + ': got salary: ' + str(self.salary)
-        print(salary_employee)
+    
 
 
 class Developer(Employee):
+	pass
 
-    def __init__(self, first_name, second_name, salary, experiance, manager):
-        super().__init__(first_name, second_name, salary, experiance, manager)
-        Manager.manager_team['developer'].append(self.first_name)
 
 
 class Designer(Employee):
@@ -93,7 +90,6 @@ class Designer(Employee):
         super().__init__(first_name, second_name, salary, experiance, manager)
         self.coefficient = coefficient
         self.salary = self.salary * coefficient
-        Manager.manager_team['designer'].append(self.first_name)
 
 
 a = Designer('Petur', 'Portov', 1000, 4, 'Martin', 0.4)
@@ -103,5 +99,11 @@ n = Designer('Tur', 'pirin', 1400, 4, 'Borov', 0.7)
 v = Designer('ter', 'irin', 1400, 4, 'Borov', 0.7)
 r = Designer('ter', 'Pipirin', 1400, 4, 'Borov', 0.7)
 d = Manager('Martun', 'Porontuv', 800, 6,)
+
+d.add_to_team('Martin', 'designer')
+print(d.team)
+
+rerer = Manager('Poronov', 'Porontuv', 800, 6,)
 print(a)
-print(Manager.manager_team)
+d.give_salary()
+print(b)
